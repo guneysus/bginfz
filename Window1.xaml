@@ -1,0 +1,47 @@
+﻿<Window x:Class="Bginfz.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bginfz"
+        mc:Ignorable="d"
+        Title="Window1"
+        Height="450" Width="400"
+        WindowStyle="None" 
+        AllowsTransparency="True" 
+        Background="Transparent" 
+        Topmost="True" 
+        ResizeMode="NoResize"
+        SizeToContent="Height" 
+        Left="0" Top="20"
+        ShowInTaskbar="False"
+        Padding="0">
+
+    <Window.Resources>
+        <!-- Font reference -->
+        <FontFamily x:Key="RobotoMonoSemiBold">pack://application:,,,/fonts/RobotoMono-SemiBold.ttf#Roboto Mono SemiBold</FontFamily>
+        <FontFamily x:Key="RobotoMonoThin">pack://application:,,,/fonts/RobotoMono-Thin.ttf#Roboto Mono Thin</FontFamily>
+        <FontFamily x:Key="RobotoMonoLight">pack://application:,,,/fonts/RobotoMono-Light.ttf#Roboto Mono Light</FontFamily>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Disk usage bar -->
+        <ProgressBar x:Name="DiskUsageBar" 
+                     Height="20" 
+                     Background="Transparent"
+                     BorderBrush="white"
+                     BorderThickness="0.5"
+                     VerticalAlignment="Center"
+                     Minimum="0" Maximum="100" Value="30" 
+                     Margin="5" Foreground="white"  />
+
+        <!-- Disk usage percentage text -->
+        <TextBlock x:Name="DiskUsageText" VerticalAlignment="Bottom" 
+                   HorizontalAlignment="Left" 
+                   Text="Disk %30"
+                   Padding="5"
+                   FontFamily="{StaticResource RobotoMonoLight}"
+                   Margin="10" FontSize="16" Foreground="Black"/>
+
+    </Grid>
+</Window>

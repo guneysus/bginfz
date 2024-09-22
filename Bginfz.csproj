@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Remove="fonts\RobotoMono-ExtraLight.ttf" />
+        <None Remove="fonts\RobotoMono-Light.ttf" />
+        <None Remove="fonts\RobotoMono-SemiBold.ttf" />
+        <None Remove="fonts\RobotoMono-Thin.ttf" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="fonts\RobotoMono-ExtraLight.ttf" />
+      <Resource Include="fonts\RobotoMono-Light.ttf" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Resource Include="fonts\RobotoMono-SemiBold.ttf" />
+        <Resource Include="fonts\RobotoMono-Thin.ttf" />
+    </ItemGroup>
+
+</Project>
