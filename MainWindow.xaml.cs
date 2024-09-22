@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -49,10 +50,38 @@ public partial class MainWindow : Window
         dispatchTimer.Start();
     }
 
+    private static System.Net.IPAddress GetDefaultGateway()
+    {
+        var networkInterfaces = NetworkInterface.GetAllNetworkInterfaces()
+            .Where(n => n.OperationalStatus == OperationalStatus.Up);
+
+        foreach (var netInterface in networkInterfaces)
+        {
+            var gateway = netInterface.GetIPProperties()?.GatewayAddresses
+                ?.FirstOrDefault()?.Address;
+            if (gateway != null)
+            {
+                return gateway;
+            }
+        }
+
+        return null;
+    }
+
+    private void UpdateGateway()
+    {
+        var gateway = NetworkInterface.GetAllNetworkInterfaces()
+                        .SelectMany(n => n.GetIPProperties().GatewayAddresses)
+                        .FirstOrDefault()?.Address.ToString();
+
+        DefaultGatewayText.Text = gateway ?? "No Gateway";
+    }
+
     private void DispatchTimer_Tick(object? sender, EventArgs e)
     {
         UpdateClock();
         UpdateDiskUsage();
+        UpdateGateway();
 #if RELEASE
         // Check if the desktop is the active window
         if (IsDesktopActive())

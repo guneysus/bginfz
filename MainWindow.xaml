@@ -30,10 +30,15 @@
     <Grid Margin="8">
         <!-- Define two rows: one for the clock, one for the progress bar -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <!-- Clock row -->
             <RowDefinition Height="Auto"/>
+            
             <!-- Progress bar row -->
+            <RowDefinition Height="Auto"/>
+
+            <!-- Default Gateway -->
+            <RowDefinition Height="Auto"/>
+            
         </Grid.RowDefinitions>
 
         <!-- Clock display -->
@@ -45,8 +50,17 @@
                    Grid.Row="0" 
                    Text="13:33:55"/>
 
+        <!-- Default gateway IP display -->
+        <TextBlock x:Name="DefaultGatewayText" 
+                   Foreground="White" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Left" 
+                   TextAlignment="Left"
+                   Grid.Row="1" 
+                   Text="Default Gateway: 192.168.1.1"/>
+
         <!-- Disk usage bar -->
-        <Grid Grid.Row="1" Margin="0,5,0,5">
+        <Grid Grid.Row="2" Margin="0,5,0,5">
             <!-- Progress bar background -->
             <ProgressBar x:Name="DiskUsageBar" 
                          Height="20"
