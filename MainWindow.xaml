@@ -28,17 +28,19 @@
     </Window.Resources>
 
     <Grid Margin="8">
-        <!-- Define two rows: one for the clock, one for the progress bar -->
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <!-- Clock row -->
             <RowDefinition Height="Auto"/>
-            
-            <!-- Progress bar row -->
+            <!-- Gateway row -->
             <RowDefinition Height="Auto"/>
-
-            <!-- Default Gateway -->
+            <!-- Disk usage row -->
             <RowDefinition Height="Auto"/>
-            
+            <!-- CPU usage row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Memory usage row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Network speed row -->
         </Grid.RowDefinitions>
 
         <!-- Clock display -->
@@ -78,5 +80,52 @@
                        Text="Free: 10.0 GB"
                        Foreground="Black" />
         </Grid>
+
+
+        <!-- CPU usage bar -->
+        <Grid Grid.Row="3" Margin="0,5,0,5">
+            <!-- Progress bar for CPU usage -->
+            <ProgressBar x:Name="CpuUsageBar" 
+                     Height="20"
+                     Minimum="0" 
+                     Maximum="100" 
+                     Value="45" 
+                     Background="Transparent"
+                     Foreground="Orange" 
+                     VerticalAlignment="Center"/>
+
+            <!-- CPU usage text inside progress bar -->
+            <TextBlock x:Name="CpuUsageText" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Left" 
+                   Text="CPU Usage: 45%"
+                   Foreground="Black" />
+        </Grid>
+
+
+        <!-- Memory usage bar -->
+        <Grid Grid.Row="4" Margin="0,5,0,5">
+            <ProgressBar x:Name="MemoryUsageBar" 
+                     Height="20"
+                     Minimum="0" 
+                     Maximum="100" 
+                     Value="70" 
+                     Background="Transparent"
+                     Foreground="LightBlue" 
+                     VerticalAlignment="Center"/>
+            <TextBlock x:Name="MemoryUsageText" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Left" 
+                   Text="Memory Usage: 70%"
+                   Foreground="Black" />
+        </Grid>
+
+        <!-- Network speed display -->
+        <TextBlock x:Name="NetworkSpeedText" 
+               Foreground="White" 
+               VerticalAlignment="Center" 
+               HorizontalAlignment="Left" 
+               Grid.Row="5" 
+               Text="⇅ 500 KB/s ⇅ 200 KB/s"/>
     </Grid>
 </Window>
