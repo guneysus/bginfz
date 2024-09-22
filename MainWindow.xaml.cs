@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,7 +36,9 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+#if false
         new Window1().Show();
+#endif
 
         dispatchTimer = new DispatcherTimer
         {
@@ -48,15 +51,18 @@ public partial class MainWindow : Window
 
     private void DispatchTimer_Tick(object? sender, EventArgs e)
     {
-        ClockText.Text = DateTime.Now.ToString("HH:mm:ss");
-
+        UpdateClock();
+        UpdateDiskUsage();
+#if RELEASE
         // Check if the desktop is the active window
         if (IsDesktopActive())
             this.Show();
         else
-            this.Hide();
+            this.Hide(); 
+#endif
     }
 
+    private void UpdateClock() => ClockText.Text = DateTime.Now.ToString("HH:mm:ss d MMMM dddd", System.Globalization.CultureInfo.CreateSpecificCulture("tr-TR"));
     private bool IsDesktopActive()
     {
         const int nChars = 256;
@@ -70,11 +76,49 @@ public partial class MainWindow : Window
             return currentClassName == "Progman" ||
                 currentClassName == "WorkerW" ||
                 currentClassName == "Shell_TrayWnd" ||
-                currentClassName == "TrayiconMessageWindow" || 
-                currentClassName == "Shell_TrayWnd" || 
+                currentClassName == "TrayiconMessageWindow" ||
+                currentClassName == "Shell_TrayWnd" ||
                 currentClassName == "Windows.UI.Core.CoreWindow";
         }
 
         return false;
+    }
+
+    private void UpdateDiskUsage()
+    {
+        // Get the C: drive info (modify this if you want another drive)
+        DriveInfo drive = new DriveInfo("C");
+
+        if (drive.IsReady)
+        {
+            // Calculate disk usage percentage
+            long totalSpace = drive.TotalSize;
+            long freeSpace = drive.TotalFreeSpace;
+            long usedSpace = totalSpace - freeSpace;
+
+            double usagePercentage = ((double) usedSpace / totalSpace) * 100;
+
+            // Update ProgressBar and TextBlock
+            DiskUsageBar.Value = usagePercentage;
+            DiskUsageText.Text = $"{usagePercentage:F0}% ({FormatBytes(freeSpace)} Free)";
+        }
+        else
+        {
+            DiskUsageText.Text = "Drive is not ready";
+        }
+    }
+
+    private string FormatBytes(long bytes)
+    {
+        const long scale = 1024;
+        string[] orders = new string[] { "B", "KB", "MB", "GB", "TB" };
+        double max = bytes;
+        int i = 0;
+        while (max >= scale && i < orders.Length - 1)
+        {
+            max /= scale;
+            i++;
+        }
+        return $"{max:0.0} {orders[i]}";
     }
 }

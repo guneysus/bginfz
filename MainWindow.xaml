@@ -6,41 +6,63 @@
         xmlns:local="clr-namespace:Bginfz"
         mc:Ignorable="d"
         Title="MainWindow" 
-        Height="450" Width="400"
         WindowStyle="None" 
         AllowsTransparency="True" 
         Background="Transparent" 
         Topmost="True" 
         ResizeMode="NoResize"
         SizeToContent="Height" 
-        Left="0" Top="0"
+        Width="280"
+        Left="0" 
+        Top="0"
         Margin="0"
-        ShowInTaskbar="False"
-        Padding="0">
+        Padding="0"
+        ShowInTaskbar="False">
     <Window.Resources>
-        <!-- Font reference -->
         <FontFamily x:Key="RobotoMonoSemiBold">pack://application:,,,/fonts/RobotoMono-SemiBold.ttf#Roboto Mono SemiBold</FontFamily>
-        <FontFamily x:Key="RobotoMonoThin">pack://application:,,,/fonts/RobotoMono-Thin.ttf#Roboto Mono Thin</FontFamily>
-        <FontFamily x:Key="RobotoMonoLight">pack://application:,,,/fonts/RobotoMono-Light.ttf#Roboto Mono Light</FontFamily>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="2"/>
+        </Style>
     </Window.Resources>
 
-    <Grid>
-        <!-- Border around the entire window -->
-        <Border 
-            BorderBrush="LightGray" 
-            BorderThickness="1" 
-            CornerRadius="0" 
-            Margin="5"
-            Padding="0">
-            <TextBlock x:Name="ClockText" 
-                       FontSize="16"
-                       Padding="5 0 5 0"
-                       Foreground="White" 
-                       VerticalAlignment="Center"
-                       FontFamily="{StaticResource RobotoMonoLight}"
-                       HorizontalAlignment="Left" 
-                       />
+    <Grid Margin="8">
+        <!-- Define two rows: one for the clock, one for the progress bar -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Clock row -->
+            <RowDefinition Height="Auto"/>
+            <!-- Progress bar row -->
+        </Grid.RowDefinitions>
 
-        </Border>
+        <!-- Clock display -->
+        <TextBlock x:Name="ClockText" 
+                   Foreground="White" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Left" 
+                   TextAlignment="Justify"
+                   Grid.Row="0" 
+                   Text="13:33:55"/>
+
+        <!-- Disk usage bar -->
+        <Grid Grid.Row="1" Margin="0,5,0,5">
+            <!-- Progress bar background -->
+            <ProgressBar x:Name="DiskUsageBar" 
+                         Height="20"
+                         Minimum="0" 
+                         Maximum="100" 
+                         Value="65" 
+                         Background="Transparent"
+                         Foreground="White" 
+                         VerticalAlignment="Center"/>
+
+            <!-- Disk usage text inside progress bar -->
+            <TextBlock x:Name="DiskUsageText" 
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Left" 
+                       Text="Free: 10.0 GB"
+                       Foreground="Black" />
+        </Grid>
     </Grid>
 </Window>
